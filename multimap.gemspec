@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.extensions = ['ext/extconf.rb']
 
   s.has_rdoc = true
-  s.extra_rdoc_files = %w[README.rdoc MIT-LICENSE]
+  s.extra_rdoc_files = %w[README.rdoc LICENSE]
 
   s.author   = 'Joshua Peek'
   s.email    = 'josh@joshpeek.com'
