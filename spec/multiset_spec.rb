@@ -1,6 +1,6 @@
 require 'multiset'
 
-require 'spec/set_examples'
+require 'set_examples'
 
 describe Multiset do
   it_should_behave_like "Set"

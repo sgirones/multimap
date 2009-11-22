@@ -1,7 +1,7 @@
 require 'multimap'
 
-require 'spec/enumerable_examples'
-require 'spec/hash_examples'
+require 'enumerable_examples'
+require 'hash_examples'
 
 describe Multimap, "with inital values {'a' => [100], 'b' => [200, 300]}" do
   it_should_behave_like "Enumerable Multimap with inital values {'a' => [100], 'b' => [200, 300]}"
