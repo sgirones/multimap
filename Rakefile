@@ -1,11 +1,3 @@
-begin
-  require 'mg'
-  mg = MG.new('multimap.gemspec')
-  $spec = mg.spec
-rescue LoadError
-end
-
-
 require 'rake/rdoctask'
 
 Rake::RDocTask.new { |rdoc|
