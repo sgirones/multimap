@@ -45,7 +45,7 @@ class NestedMultimap < Multimap
   #   map["a"] #=> [100, 300]
   #   map["c"] #=> [300]
   def <<(value)
-    hash_each_pair { |_, container| container << value }
+    @hash.each_pair { |_, container| container << value }
     self.default << value
     self
   end
@@ -59,7 +59,7 @@ class NestedMultimap < Multimap
   def [](*keys)
     i, l, r, k = 0, keys.length, self, self.class
     while r.is_a?(k)
-      r = i < l ? r.hash_aref(keys[i]) : r.default
+      r = i < l ? r._internal_hash[keys[i]] : r.default
       i += 1
     end
     r
@@ -122,7 +122,7 @@ class NestedMultimap < Multimap
       end
     end
 
-    hash_each_pair { |_, container| each_container.call(container) }
+    @hash.each_pair { |_, container| each_container.call(container) }
     each_container.call(default)
 
     self
