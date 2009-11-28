@@ -1,7 +1,4 @@
-require 'nested_multimap'
-
-require 'enumerable_examples'
-require 'hash_examples'
+require 'spec_helper'
 
 describe NestedMultimap, "with inital values" do
   it_should_behave_like "Enumerable Multimap with inital values {'a' => [100], 'b' => [200, 300]}"
@@ -56,11 +53,11 @@ describe NestedMultimap, "with inital values" do
   end
 
   it "should list all containers" do
-    @map.containers.should eql([[100], [200, 300]])
+    @map.containers.should sorted_eql([[100], [200, 300]])
   end
 
   it "should list all values" do
-    @map.values.should eql([100, 200, 300])
+    @map.values.should sorted_eql([100, 200, 300])
   end
 end
 
@@ -97,7 +94,7 @@ describe NestedMultimap, "with nested values" do
   it "should iterate over each key/value pair and yield an array" do
     a = []
     @map.each { |pair| a << pair }
-    a.should eql([
+    a.should sorted_eql([
       ["a", 100],
       [["b", "c"], 200],
       [["b", "c"], 300],
@@ -109,7 +106,7 @@ describe NestedMultimap, "with nested values" do
   it "should iterate over each key/container" do
     a = []
     @map.each_association { |key, container| a << [key, container] }
-    a.should eql([
+    a.should sorted_eql([
       ["a", [100]],
       [["b", "c"], [200, 300]],
       [["c", "e"], [400, 500]]
@@ -119,7 +116,7 @@ describe NestedMultimap, "with nested values" do
   it "should iterate over each container plus the default" do
     a = []
     @map.each_container_with_default { |container| a << container }
-    a.should eql([
+    a.should sorted_eql([
       [100],
       [200, 300],
       [200],
@@ -132,7 +129,7 @@ describe NestedMultimap, "with nested values" do
   it "should iterate over each key" do
     a = []
     @map.each_key { |key| a << key }
-    a.should eql(["a", ["b", "c"], ["b", "c"], ["c", "e"], ["c", "e"]])
+    a.should sorted_eql(["a", ["b", "c"], ["b", "c"], ["c", "e"], ["c", "e"]])
   end
 
   it "should iterate over each key/value pair and yield the pair" do
@@ -148,15 +145,15 @@ describe NestedMultimap, "with nested values" do
   it "should iterate over each value" do
     a = []
     @map.each_value { |value| a << value }
-    a.should eql([100, 200, 300, 400, 500])
+    a.should sorted_eql([100, 200, 300, 400, 500])
   end
 
   it "should list all containers" do
-    @map.containers.should eql([[100], [200, 300], [400, 500]])
+    @map.containers.should sorted_eql([[100], [200, 300], [400, 500]])
   end
 
   it "should list all containers plus the default" do
-    @map.containers_with_default.should eql([[100], [200, 300], [200], [400, 500], [500], []])
+    @map.containers_with_default.should sorted_eql([[100], [200, 300], [200], [400, 500], [500], []])
   end
 
   it "should return array of keys" do
@@ -164,12 +161,9 @@ describe NestedMultimap, "with nested values" do
   end
 
   it "should list all values" do
-    @map.values.should eql([100, 200, 300, 400, 500])
+    @map.values.should sorted_eql([100, 200, 300, 400, 500])
   end
 end
-
-
-require 'set'
 
 describe NestedMultimap, "with", Set do
   it_should_behave_like "Enumerable Multimap with inital values {'a' => [100], 'b' => [200, 300]}"

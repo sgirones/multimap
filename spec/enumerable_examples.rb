@@ -14,8 +14,8 @@ shared_examples_for Enumerable, Multimap, "with inital values {'a' => [100], 'b'
   end
 
   it "should collect key/value pairs" do
-    @map.collect { |key, value| [key, value] }.should eql([["a", 100], ["b", 200], ["b", 300]])
-    @map.map { |key, value| [key, value] }.should eql([["a", 100], ["b", 200], ["b", 300]])
+    @map.collect { |key, value| [key, value] }.should sorted_eql([["a", 100], ["b", 200], ["b", 300]])
+    @map.map { |key, value| [key, value] }.should sorted_eql([["a", 100], ["b", 200], ["b", 300]])
   end
 
   it "should detect key/value pair" do
@@ -24,8 +24,8 @@ shared_examples_for Enumerable, Multimap, "with inital values {'a' => [100], 'b'
   end
 
   it "should return entries" do
-    @map.entries.should eql([["a", 100], ["b", 200], ["b", 300]])
-    @map.to_a.should eql([["a", 100], ["b", 200], ["b", 300]])
+    @map.entries.should sorted_eql([["a", 100], ["b", 200], ["b", 300]])
+    @map.to_a.should sorted_eql([["a", 100], ["b", 200], ["b", 300]])
   end
 
   it "should find all key/value pairs" do

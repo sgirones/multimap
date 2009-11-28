@@ -73,25 +73,25 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
   it "should iterate over each key/value pair and yield an array" do
     a = []
     @map.each { |pair| a << pair }
-    a.should eql([["a", 100], ["b", 200], ["b", 300]])
+    a.should sorted_eql([["a", 100], ["b", 200], ["b", 300]])
   end
 
   it "should iterate over each container" do
     a = []
     @map.each_container { |container| a << container }
-    a.should eql([@container.new([100]), @container.new([200, 300])])
+    a.should sorted_eql([@container.new([100]), @container.new([200, 300])])
   end
 
   it "should iterate over each key/container" do
     a = []
     @map.each_association { |key, container| a << [key, container] }
-    a.should eql([["a", @container.new([100])], ["b", @container.new([200, 300])]])
+    a.should sorted_eql([["a", @container.new([100])], ["b", @container.new([200, 300])]])
   end
 
   it "should iterate over each key" do
     a = []
     @map.each_key { |key| a << key }
-    a.should eql(["a", "b", "b"])
+    a.should sorted_eql(["a", "b", "b"])
   end
 
   it "should iterate over each key/value pair and yield the pair" do
@@ -103,7 +103,7 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
   it "should iterate over each value" do
     a = []
     @map.each_value { |value| a << value }
-    a.should eql([100, 200, 300])
+    a.should sorted_eql([100, 200, 300])
   end
 
   it "should be empty if there are no key/value pairs" do
@@ -217,11 +217,11 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
   end
 
   it "should return all containers" do
-    @map.containers.should eql([@container.new([100]), @container.new([200, 300])])
+    @map.containers.should sorted_eql([@container.new([100]), @container.new([200, 300])])
   end
 
   it "should return all values" do
-    @map.values.should eql([100, 200, 300])
+    @map.values.should sorted_eql([100, 200, 300])
   end
 
   it "should return return values at keys" do
