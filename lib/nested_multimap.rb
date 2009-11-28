@@ -83,7 +83,7 @@ class NestedMultimap < Multimap
   #   ["a", "b"] is [100, 101, 102]
   #   "c" is [200]
   def each_association
-    super do |key, container|
+    super() do |key, container|
       if container.respond_to?(:each_association)
         container.each_association do |nested_key, value|
           yield [key, nested_key].flatten, value
