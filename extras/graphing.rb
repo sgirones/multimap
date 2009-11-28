@@ -1,6 +1,3 @@
-require 'rubygems'
-
-gem 'ruby-graphviz'
 require 'graphviz'
 
 class Object
@@ -24,7 +21,7 @@ class Array
 end
 
 class String
-  DOT_ESCAPE = %w( \\ < > { } " " )
+  DOT_ESCAPE = %w( \\ < > { } )
   DOT_ESCAPE_REGEXP = Regexp.compile("(#{Regexp.union(*DOT_ESCAPE).source})")
 
   def dot_escape
@@ -32,10 +29,10 @@ class String
   end
 end
 
-class Multimap < Hash
+class Multimap
   def to_graph_label
     label = []
-    hash_each_pair do |key, _|
+    @hash.each_pair do |key, _|
       label << "<#{key.to_graph_node}> #{key.to_graph_label}"
     end
     "#{label.join('|')}|<default>"
@@ -44,7 +41,7 @@ class Multimap < Hash
   def add_to_graph(graph)
     hash_node = super
 
-    hash_each_pair do |key, container|
+    @hash.each_pair do |key, container|
       node = container.add_to_graph(graph)
       graph.add_edge("#{hash_node.name}:#{key.to_graph_node}", node)
     end
@@ -72,8 +69,8 @@ class Multimap < Hash
   end
 
   def open_graph!
-    to_graph.output(:path => '/opt/local/bin/', :file => '/tmp/graph.dot')
-    system('open /tmp/graph.dot')
+    to_graph.output(:png => '/tmp/graph.png')
+    system('open /tmp/graph.png')
   end
 end
 
