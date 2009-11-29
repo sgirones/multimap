@@ -47,12 +47,18 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
     @map["b"].should eql(@container.new([300]))
   end
 
-  it "should delete if condition is matched" do
+  it "should delete if key condition is matched" do
     @map.delete_if { |key, value| key >= "b" }.should eql(@map)
     @map["a"].should eql(@container.new([100]))
     @map["b"].should eql(@container.new)
 
     @map.delete_if { |key, value| key > "z" }.should eql(@map)
+  end
+
+  it "should delete if value condition is matched" do
+    @map.delete_if { |key, value| value >= 300 }.should eql(@map)
+    @map["a"].should eql(@container.new([100]))
+    @map["b"].should eql(@container.new([200]))
   end
 
   it "should duplicate the containers" do
@@ -193,16 +199,30 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
     @map["c"].should eql(@container.new([300, 600]))
   end
 
-  it "should reject key/value pairs on copy of the map" do
+  it "should reject key pairs on copy of the map" do
     map = @map.reject { |key, value| key >= "b" }
     map["b"].should eql(@container.new)
     @map["b"].should eql(@container.new([200, 300]))
   end
 
-  it "should reject key/value pairs" do
+  it "should reject value pairs on copy of the map" do
+    map = @map.reject { |key, value| value >= 300 }
+    map["b"].should eql(@container.new([200]))
+    @map["b"].should eql(@container.new([200, 300]))
+  end
+
+  it "should reject key pairs" do
     @map.reject! { |key, value| key >= "b" }.should eql(@map)
     @map["a"].should eql(@container.new([100]))
     @map["b"].should eql(@container.new)
+
+    @map.reject! { |key, value| key >= "z" }.should eql(nil)
+  end
+
+  it "should reject value pairs" do
+    @map.reject! { |key, value| value >= 300 }.should eql(@map)
+    @map["a"].should eql(@container.new([100]))
+    @map["b"].should eql(@container.new([200]))
 
     @map.reject! { |key, value| key >= "z" }.should eql(nil)
   end

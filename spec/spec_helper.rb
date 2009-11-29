@@ -30,7 +30,11 @@ if defined? Rubinius
   end
 end
 
+require 'forwardable'
+
 class MiniArray
+  extend Forwardable
+
   attr_accessor :data
 
   def initialize(data = [])
@@ -41,17 +45,7 @@ class MiniArray
     @data = orig.data.dup
   end
 
-  def <<(value)
-    @data << value
-  end
-
-  def each(&block)
-    @data.each(&block)
-  end
-
-  def delete(value)
-    @data.delete(value)
-  end
+  def_delegators :@data, :<<, :each, :delete, :delete_if
 
   def ==(other)
     other.is_a?(self.class) && @data == other.data
