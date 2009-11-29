@@ -91,6 +91,29 @@ describe NestedMultimap, "with nested values" do
     @map[nil].should eql([600])
   end
 
+  it "should duplicate the containers" do
+    map2 = @map.dup
+    map2.should_not equal(@map)
+    map2.should eql(@map)
+
+    map2["a"].should eql([100])
+    map2["b"].should eql([200])
+    map2["c"].should eql([500])
+    map2["a", "b"].should eql([100])
+    map2["b", "c"].should eql([200, 300])
+    map2["c", "e"].should eql([400, 500])
+
+    map2["a"].should_not equal(@map["a"])
+    map2["b"].should_not equal(@map["b"])
+    map2["c"].should_not equal(@map["c"])
+    map2["a", "b"].should_not equal(@map["a", "b"])
+    map2["b", "c"].should_not equal(@map["b", "c"])
+    map2["c", "e"].should_not equal(@map["c", "e"])
+
+    map2.default.should_not equal(@map.default)
+    map2.default.should eql(@map.default)
+  end
+
   it "should iterate over each key/value pair and yield an array" do
     a = []
     @map.each { |pair| a << pair }

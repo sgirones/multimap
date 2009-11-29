@@ -67,7 +67,9 @@ class Multimap
 
   def initialize_copy(original) #:nodoc:
     @hash = Hash.new(original.default.dup)
-    original.each_pair { |key, container| self[key] = container }
+    original._internal_hash.each_pair do |key, container|
+      @hash[key] = container.dup
+    end
   end
 
   def_delegators :@hash, :clear, :default, :default=, :empty?,

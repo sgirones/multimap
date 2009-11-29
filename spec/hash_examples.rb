@@ -61,6 +61,8 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
     map2.should eql(@map)
     map2["a"].should_not equal(@map["a"])
     map2["b"].should_not equal(@map["b"])
+    map2.default.should_not equal(@map.default)
+    map2.default.should eql(@map.default)
   end
 
   it "should freeze containers" do
