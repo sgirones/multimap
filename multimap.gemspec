@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
 
   s.has_rdoc = true
   s.extra_rdoc_files = %w[README.rdoc LICENSE]
+  s.rdoc_options << '--title' << 'Multimap' <<
+                     '--main' << 'README.rdoc'
 
   s.author   = 'Joshua Peek'
   s.email    = 'josh@joshpeek.com'

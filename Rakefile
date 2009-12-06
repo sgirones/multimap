@@ -1,10 +1,14 @@
-require 'rake/rdoctask'
+require 'rubygems/specification'
+spec = eval(File.read('multimap.gemspec'))
 
-Rake::RDocTask.new { |rdoc|
-  rdoc.title  = 'Multimap'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-}
+if spec.has_rdoc
+  require 'rake/rdoctask'
+
+  Rake::RDocTask.new { |rdoc|
+    rdoc.options = spec.rdoc_options
+    rdoc.rdoc_files = spec.files
+  }
+end
 
 
 task :default => :spec
