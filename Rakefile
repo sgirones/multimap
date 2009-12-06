@@ -1,10 +1,7 @@
 require 'rake/rdoctask'
 
 Rake::RDocTask.new { |rdoc|
-  rdoc.title    = 'Multimap'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.options << '--charset' << 'utf-8'
-
+  rdoc.title  = 'Multimap'
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 }
