@@ -45,7 +45,7 @@ class NestedMultimap < Multimap
   #   map["a"] #=> [100, 300]
   #   map["c"] #=> [300]
   def <<(value)
-    @hash.each_pair { |_, container| container << value }
+    @hash.each_value { |container| container << value }
     self.default << value
     self
   end
