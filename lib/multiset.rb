@@ -159,4 +159,12 @@ class Multiset < Set
     superset?(set) && subset?(set)
   end
   alias_method :==, :eql?
+
+  def marshal_dump #:nodoc:
+    @hash
+  end
+
+  def marshal_load(hash) #:nodoc:
+    instance_variable_set(:'@hash', hash)
+  end
 end

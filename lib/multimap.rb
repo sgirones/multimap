@@ -529,6 +529,14 @@ class Multimap
     @hash.values_at(*keys)
   end
 
+  def marshal_dump #:nodoc:
+    @hash
+  end
+
+  def marshal_load(hash) #:nodoc:
+    instance_variable_set(:'@hash', hash)
+  end
+
   protected
     def _internal_hash #:nodoc:
       @hash

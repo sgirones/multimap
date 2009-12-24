@@ -150,6 +150,12 @@ describe Multiset do
     set.should_not equal(ret)
     ret.should eql(Multiset[1, 3, 5])
   end
+
+  it "should marshal set" do
+    set = Multiset[1, 2, 3, 4, 5]
+    data = Marshal.dump(set)
+    Marshal.load(data).should eql(set)
+  end
 end
 
 describe Multiset, "with inital values" do

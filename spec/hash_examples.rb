@@ -249,4 +249,9 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
   it "should return return values at keys" do
     @map.values_at("a", "b").should eql([@container.new([100]), @container.new([200, 300])])
   end
+
+  it "should marshal hash" do
+    data = Marshal.dump(@map)
+    Marshal.load(data).should eql(@map)
+  end
 end
