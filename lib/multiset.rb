@@ -165,6 +165,21 @@ class Multiset < Set
   end
 
   def marshal_load(hash) #:nodoc:
-    instance_variable_set(:'@hash', hash)
+    @hash = hash
+  end
+
+  def to_yaml(opts = {}) #:nodoc:
+    YAML::quick_emit(self, opts) do |out|
+      out.map(taguri, to_yaml_style) do |map|
+        @hash.each do |k, v|
+          map.add(k, v)
+        end
+      end
+    end
+  end
+
+  def yaml_initialize(tag, val) #:nodoc:
+    @hash = val
+    self
   end
 end

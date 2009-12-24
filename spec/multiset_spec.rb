@@ -156,6 +156,14 @@ describe Multiset do
     data = Marshal.dump(set)
     Marshal.load(data).should eql(set)
   end
+
+  it "should dump yaml" do
+    require 'yaml'
+
+    set = Multiset[1, 2, 3, 4, 5]
+    data = YAML.dump(set)
+    YAML.load(data).should eql(set)
+  end
 end
 
 describe Multiset, "with inital values" do

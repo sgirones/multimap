@@ -254,4 +254,11 @@ shared_examples_for Hash, Multimap, "with inital values {'a' => [100], 'b' => [2
     data = Marshal.dump(@map)
     Marshal.load(data).should eql(@map)
   end
+
+  it "should dump yaml" do
+    require 'yaml'
+
+    data = YAML.dump(@map)
+    YAML.load(data).should eql(@map)
+  end
 end
