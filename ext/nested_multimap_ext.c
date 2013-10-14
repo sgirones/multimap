@@ -10,7 +10,7 @@ static VALUE rb_nested_multimap_aref(int argc, VALUE *argv, VALUE self)
 	for (i = 0, r = self; rb_obj_is_kind_of(r, cNestedMultimap) == Qtrue; i++) {
 		h = rb_funcall(r, rb_intern("_internal_hash"), 0);
 		Check_Type(h, T_HASH);
-		r = (i < argc) ? rb_hash_aref(h, argv[i]) : RHASH(h)->ifnone;
+		r = (i < argc) ? rb_hash_aref(h, argv[i]) : RHASH_IFNONE(h);
 	}
 
 	return r;
